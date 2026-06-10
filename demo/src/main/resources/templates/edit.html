@@ -1,0 +1,23 @@
+<!-- edit.html -->
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<form th:action="@{/update}" th:object="${todo}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <label>Title:</label>
+    <input type="text" th:field="*{title}" />
+    
+    <label>Due Date:</label>
+    <input type="date" th:field="*{dueDate}" />
+
+
+
+    <label>Completed:</label>
+    <input type="checkbox" th:field="*{completed}" />
+
+    <button type="submit">Update</button>
+</form>
+</body>
+
+
+</html>
