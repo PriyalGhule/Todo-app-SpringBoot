@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: "http://localhost:8080"
+    baseURL: "https://todo-app-springboot-production-4194.up.railway.app"
 });
 
 API.interceptors.request.use((config) => {
