@@ -18,11 +18,12 @@ function App() {
 
             <Routes>
 
-                <Route path="/" element={<Todos />} />
-<Route path="/add" element={<AddTodo />} />
-<Route path="/edit/:id" element={<EditTodo />} />
-<Route path="/login" element={<Login />} />
-<Route path="/register" element={<Register />} />
+                <Route path="/" element={<Navigate to="/login" replace />} />
+  <Route path="/add" element={<AddTodo />} />
+  <Route path="/edit/:id" element={<EditTodo />} />
+  <Route path="/login" element={<Login />} />
+  <Route path="/register" element={<Register />} />
+  <Route path="/todos" element={<Todos />} />
 
             </Routes>
 
