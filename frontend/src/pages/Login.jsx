@@ -33,7 +33,7 @@ const Login = () => {
 
             login(response.data.token);
 
-            navigate("/");
+            navigate("/todos");
 
         } catch (error) {
 

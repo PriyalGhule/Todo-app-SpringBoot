@@ -52,8 +52,10 @@ export default function EditTodo() {
             todo
         );
 
-        navigate("/");
+        navigate("/todos");
     };
+
+    const today = new Date().toISOString().split("T")[0];
 
     return (
 
@@ -113,6 +115,7 @@ export default function EditTodo() {
                         <input
                             type="date"
                             name="dueDate"
+                            min={today}
                             value={todo.dueDate || ""}
                             onChange={handleChange}
                             className="

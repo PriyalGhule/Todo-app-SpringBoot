@@ -3,6 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 import API from "../services/api";
 
+
+
+
+
+
 export default function AddTodo() {
 
     const navigate = useNavigate();
@@ -11,6 +16,9 @@ export default function AddTodo() {
         title: "",
         dueDate: ""
     });
+
+
+    const today = new Date().toISOString().split("T")[0];
 
     const handleChange = (e) => {
 
@@ -26,7 +34,7 @@ export default function AddTodo() {
 
         await API.post("/api/todos", todo);
 
-        navigate("/");
+        navigate("/todos");
     };
 
     return (
@@ -87,6 +95,7 @@ export default function AddTodo() {
                     <input
                         type="date"
                         name="dueDate"
+                        min={today}
                         onChange={handleChange}
                         className="
                             w-full

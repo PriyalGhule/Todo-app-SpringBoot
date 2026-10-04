@@ -13,7 +13,7 @@ import com.example.demo.entity.User;
 
 @Service
 public class CustomUserDetailsService
-        implements UserDetailsService {
+        implements UserDetailsService {     //Spring Security understands this interface called UserDetailsService
 
     @Autowired
     private UserRepository userRepository;
@@ -22,12 +22,12 @@ public class CustomUserDetailsService
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
 
-        User user = userRepository
+        User user = userRepository                 //fetch user from my database
                 .findByUsername(username)
                 .orElseThrow(() ->
                         new UsernameNotFoundException("User not found"));
 
-        return new org.springframework.security.core.userdetails.User(
+        return new org.springframework.security.core.userdetails.User(     //add details to spring security user
                 user.getUsername(),
                 user.getPassword(),
                 Collections.emptyList()

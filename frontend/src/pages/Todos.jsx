@@ -9,10 +9,14 @@ import {
     useNavigate
 } from "react-router-dom";
 
+import axios from "axios";
+
 import API from "../services/api";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Todos() {
+
+    
 
     const [todos, setTodos] = useState([]);
     const [keyword, setKeyword] = useState("");
@@ -78,6 +82,29 @@ export default function Todos() {
         fetchTodos();
     };
 
+
+   const downloadTodos = async () => {
+    try {
+        const response = await API.get("/api/todos/download", {
+            responseType: "blob"
+        });
+
+        const url = window.URL.createObjectURL(response.data);
+
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "todos.txt";
+
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+
+        window.URL.revokeObjectURL(url);
+
+    } catch (error) {
+        console.error("Download failed:", error);
+    }
+};
     return (
 
         <div className="min-h-screen bg-zinc-950 p-8">
@@ -237,27 +264,20 @@ export default function Todos() {
                             Delete Completed
                         </button>
 
-                        <a
-                            href="http://localhost:8080/api/todos/download"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-
-                            <button
-                                className="
-                                    bg-indigo-600
-                                    hover:bg-indigo-700
-                                    text-white
-                                    px-5
-                                    py-2
-                                    rounded-xl
-                                    transition
-                                "
-                            >
-                                Download
-                            </button>
-
-                        </a>
+                        <button
+    onClick={downloadTodos}
+    className="
+        bg-indigo-600
+        hover:bg-indigo-700
+        text-white
+        px-5
+        py-2
+        rounded-xl
+        transition
+    "
+>
+    Download
+</button>
 
                     </div>
 

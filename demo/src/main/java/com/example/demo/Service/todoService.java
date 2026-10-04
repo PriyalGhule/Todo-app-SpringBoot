@@ -35,6 +35,11 @@ public class todoService {
         todo.setTitle(todoBean.getTitle());
         todo.setCompleted(todoBean.isCompleted());
         todo.setDueDate(todoBean.getDueDate());
+        
+        if (todo.getDueDate().isBefore(LocalDate.now())) {
+        throw new IllegalArgumentException("Due date cannot be in the past");
+    }
+        
         todoRepository.save(todo);
     }
     
@@ -68,6 +73,10 @@ public class todoService {
     //update
     public void updateTodo(todoEntity updatedTodo) {
         // Optionally fetch and update specific fields here
+        if(updatedTodo.getDueDate() != null &&
+        updatedTodo.getDueDate().isBefore(LocalDate.now())){
+        throw new IllegalArgumentException("Due date cannot be in the past");
+    }
         todoRepository.save(updatedTodo); // save() updates if id exists
     }
 

@@ -51,7 +51,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if (username != null &&
                 SecurityContextHolder.getContext()
-                        .getAuthentication() == null) {
+                        .getAuthentication() == null) {  //will run first time only
 
             UserDetails userDetails =
                     userDetailsService.loadUserByUsername(username);
@@ -64,12 +64,17 @@ public class JwtFilter extends OncePerRequestFilter {
                     );
 
             authToken.setDetails(
-                    new WebAuthenticationDetailsSource()
+
+                    new WebAuthenticationDetailsSource()  
                             .buildDetails(request)
             );
 
             SecurityContextHolder.getContext()
-                    .setAuthentication(authToken);   //This request is authenticated
+                    .setAuthentication(authToken);
+
+
+
+
         }
 
         filterChain.doFilter(request, response);  //Passes request forward
